@@ -9,12 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.genius.wasylews.notes.R;
+import com.genius.wasylews.notes.data.db.model.NoteModel;
 import com.genius.wasylews.notes.presentation.base.BaseFragment;
 import com.genius.wasylews.notes.presentation.main.adapter.NoteAdapter;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,13 +33,11 @@ public class NoteListFragment extends BaseFragment implements NoteListView {
     NoteListPresenter presenter;
 
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.note_list) RecyclerView noteList;
 
     private NoteAdapter adapter = new NoteAdapter();
-
 
     @ProvidePresenter
     NoteListPresenter providePresenter() {
@@ -41,10 +45,19 @@ public class NoteListFragment extends BaseFragment implements NoteListView {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     protected void onViewReady(Bundle savedInstanceState) {
         getBaseActivity().setSupportActionBar(toolbar);
         getBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        noteList.setLayoutManager(new LinearLayoutManager(getContext()));
+        noteList.setAdapter(adapter);
     }
 
     @Override
@@ -66,5 +79,15 @@ public class NoteListFragment extends BaseFragment implements NoteListView {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void showNotes(List<NoteModel> noteModels) {
+        adapter.addItems(noteModels);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(drawerLayout, message, Snackbar.LENGTH_LONG).show();
     }
 }
