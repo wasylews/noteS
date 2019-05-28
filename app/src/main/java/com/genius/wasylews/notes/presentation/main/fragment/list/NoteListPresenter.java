@@ -1,4 +1,4 @@
-package com.genius.wasylews.notes.presentation.main;
+package com.genius.wasylews.notes.presentation.main.fragment.list;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.genius.wasylews.notes.presentation.base.BasePresenter;
@@ -6,10 +6,10 @@ import com.genius.wasylews.notes.presentation.base.BasePresenter;
 import javax.inject.Inject;
 
 @InjectViewState
-public class MainPresenter extends BasePresenter<MainView> {
+public class NoteListPresenter extends BasePresenter<NoteListView> {
 
     @Inject
-    public MainPresenter() {
+    public NoteListPresenter() {
         super();
     }
 }

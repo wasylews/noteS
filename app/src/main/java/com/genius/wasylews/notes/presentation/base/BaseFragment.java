@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.arellomobile.mvp.MvpDelegate;
 
@@ -52,6 +54,17 @@ public abstract class BaseFragment extends DaggerFragment {
     protected abstract void onViewReady(Bundle savedInstanceState);
 
     protected abstract @LayoutRes int getLayoutResourceId();
+
+    protected void navigate(@IdRes int res) {
+        View view = getView();
+        if (view != null) {
+            Navigation.findNavController(getView()).navigate(res);
+        }
+    }
+
+    protected BaseActivity getBaseActivity() {
+        return ((BaseActivity) getActivity());
+    }
 
     @Override
     public void onStart() {

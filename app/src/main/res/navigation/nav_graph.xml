@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/lockFragment">
+
+    <fragment
+        android:id="@+id/lockFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.lock.LockFragment"
+        android:label="LockFragment" >
+        <action
+            android:id="@+id/action_unlock"
+            app:destination="@id/noteListFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteListFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.list.NoteListFragment"
+        android:label="NoteListFragment" >
+        <action
+            android:id="@+id/action_lock"
+            app:destination="@id/lockFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

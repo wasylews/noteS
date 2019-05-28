@@ -3,4 +3,14 @@
 
     <!--toolbar navigation-->
     <string name="search">Search</string>
+
+    <!--messages-->
+    <string name="message_no_notes_yet">No notes yet</string>
+    <string name="message_auth_failed">Authentication failed</string>
+    <string name="message_fingerprint_not_supported">The devices does not support fingerprint authentication</string>
+    <string name="message_fingerprint_description">Place your finger on the fingerprint sensor</string>
+    <string name="message_password_description">Place your finger on the fingerprint sensor</string>
+
+    <string name="title_fingerprint">Fingerprint authentication</string>
+    <string name="title_password">Password authentication</string>
 </resources>
