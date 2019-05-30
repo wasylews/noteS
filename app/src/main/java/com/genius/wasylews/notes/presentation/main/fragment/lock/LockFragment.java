@@ -29,7 +29,7 @@ public class LockFragment extends BaseFragment implements LockView {
     }
 
     @Override
-    protected void onViewReady(Bundle savedInstanceState) {
+    protected void onViewReady(Bundle args) {
         RxView.clicks(unlockButton).subscribe(unit -> {
             Navigation.findNavController(unlockButton).navigate(R.id.action_unlock);
         });

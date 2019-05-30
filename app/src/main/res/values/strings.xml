@@ -11,6 +11,11 @@
     <string name="message_fingerprint_description">Place your finger on the fingerprint sensor</string>
     <string name="message_password_description">Place your finger on the fingerprint sensor</string>
 
+    <!--titles-->
     <string name="title_fingerprint">Fingerprint authentication</string>
     <string name="title_password">Password authentication</string>
+
+    <!--hints-->
+    <string name="hint_title">Title</string>
+    <string name="hint_body">Note body</string>
 </resources>

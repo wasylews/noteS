@@ -23,8 +23,7 @@ public class NoteListPresenter extends BasePresenter<NoteListView> {
     }
 
     @Override
-    protected void onFirstViewAttach() {
-        super.onFirstViewAttach();
+    public void loadData() {
         addDisposable(getNotesUseCase.execute(new DisposableSingleObserver<List<NoteModel>>() {
             @Override
             public void onSuccess(List<NoteModel> noteModels) {

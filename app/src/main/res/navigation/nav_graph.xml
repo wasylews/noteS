@@ -25,5 +25,17 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_add"
+            app:destination="@id/addNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.add.AddNoteFragment"
+        android:label="AddNoteFragment" >
+        <action
+            android:id="@+id/action_update_list"
+            app:destination="@id/noteListFragment">
+        </action>
     </fragment>
 </navigation>
