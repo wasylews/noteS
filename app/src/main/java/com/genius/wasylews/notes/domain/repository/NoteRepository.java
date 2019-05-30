@@ -7,10 +7,12 @@ import com.genius.wasylews.notes.data.db.model.NoteModel;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
+@Singleton
 public class NoteRepository {
 
     private AppDatabase.Factory dbFactory;
@@ -21,20 +23,27 @@ public class NoteRepository {
         this.dbFactory = dbFactory;
     }
 
+    private Single<NoteDao> getDao() {
+        if (noteDao == null) {
+            return Single.error(new Exception("dao is not initialized"));
+        }
+        return Single.just(noteDao);
+    }
+
     public Single<List<NoteModel>> getNotes(char[] password) {
         noteDao = dbFactory.create(password).getNoteDao();
-        return noteDao.getNotes();
+        return getDao().flatMap(NoteDao::getNotes);
     }
 
     public Completable addNote(NoteModel note) {
-        return noteDao.addNote(note);
+        return getDao().flatMapCompletable(dao -> dao.addNote(note));
     }
 
     public Completable updateNote(NoteModel note) {
-        return noteDao.updateNote(note);
+        return getDao().flatMapCompletable(dao -> dao.updateNote(note));
     }
 
     public Completable removeNote(NoteModel note) {
-        return noteDao.removeNote(note);
+        return getDao().flatMapCompletable(dao -> dao.removeNote(note));
     }
 }

@@ -26,7 +26,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         notifyItemInserted(items.size());
     }
 
-    public void addItems(List<NoteModel> noteModels) {
+    public void setItems(List<NoteModel> noteModels) {
+        items.clear();
         items.addAll(noteModels);
         notifyDataSetChanged();
     }

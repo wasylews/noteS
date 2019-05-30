@@ -7,11 +7,12 @@ import androidx.room.TypeConverters;
 
 import com.genius.wasylews.notes.data.db.converter.DateConverter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName = "notes")
 @TypeConverters(value = {DateConverter.class})
-public class NoteModel {
+public class NoteModel implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;

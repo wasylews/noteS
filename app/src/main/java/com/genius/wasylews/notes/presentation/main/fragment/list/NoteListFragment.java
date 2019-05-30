@@ -6,34 +6,35 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.genius.wasylews.notes.R;
-import com.genius.wasylews.notes.presentation.base.BaseFragment;
+import com.genius.wasylews.notes.data.db.model.NoteModel;
+import com.genius.wasylews.notes.presentation.base.BaseToolbarFragment;
 import com.genius.wasylews.notes.presentation.main.adapter.NoteAdapter;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class NoteListFragment extends BaseFragment implements NoteListView {
+public class NoteListFragment extends BaseToolbarFragment implements NoteListView {
 
     @Inject
     @InjectPresenter
     NoteListPresenter presenter;
 
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.note_list) RecyclerView noteList;
 
     private NoteAdapter adapter = new NoteAdapter();
-
 
     @ProvidePresenter
     NoteListPresenter providePresenter() {
@@ -41,10 +42,13 @@ public class NoteListFragment extends BaseFragment implements NoteListView {
     }
 
     @Override
-    protected void onViewReady(Bundle savedInstanceState) {
-        getBaseActivity().setSupportActionBar(toolbar);
-        getBaseActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    protected void onViewReady(Bundle args) {
+        super.onViewReady(args);
         getBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        noteList.setLayoutManager(new LinearLayoutManager(getContext()));
+        noteList.setAdapter(adapter);
+        presenter.loadData();
     }
 
     @Override
@@ -63,8 +67,21 @@ public class NoteListFragment extends BaseFragment implements NoteListView {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.item_add:
+                navigate(R.id.action_add);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void showNotes(List<NoteModel> noteModels) {
+        adapter.setItems(noteModels);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(drawerLayout, message, Snackbar.LENGTH_LONG).show();
     }
 }
