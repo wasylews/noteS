@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.lifecycle.LifecycleObserver;
-import androidx.navigation.Navigation;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -33,11 +32,5 @@ public class MainActivity extends BaseActivity implements MainView, LifecycleObs
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_main;
-    }
-
-    @Override
-    protected void onUserLeaveHint() {
-        Navigation.findNavController(this, R.id.nav_host).navigate(R.id.action_lock);
-        super.onUserLeaveHint();
     }
 }
