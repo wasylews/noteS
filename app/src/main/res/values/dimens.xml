@@ -2,4 +2,11 @@
 <resources>
 
     <dimen name="navigation_width">280dp</dimen>
+    <dimen name="fingerprint_width">96dp</dimen>
+
+    <!--Margins-->
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_top">220dp</dimen>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.genius.wasylews.notes.presentation.main.adapter;
+package com.genius.wasylews.notes.presentation.main.fragment.list.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

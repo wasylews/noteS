@@ -80,12 +80,7 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
     implementation 'com.jakewharton.rxbinding3:rxbinding-core:3.0.0-alpha2'
     implementation 'com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0-alpha2'
-    implementation 'com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0-alpha2'
-    implementation 'com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0-alpha2'
-    implementation 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0-alpha2'
-    implementation 'com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0-alpha2'
     implementation 'com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0-alpha2'
-    implementation 'com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0-alpha2'
 
     // butterknife
     implementation 'com.jakewharton:butterknife:10.1.0'
@@ -104,4 +99,7 @@ dependencies {
 
     // rxBiometric
     implementation 'com.github.pwittchen:rxbiometric:0.1.0'
+
+    // swirl
+    implementation 'com.mattprecious.swirl:swirl:1.2.0'
 }

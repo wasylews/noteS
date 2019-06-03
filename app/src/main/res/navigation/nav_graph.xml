@@ -2,40 +2,37 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/lockFragment">
-
-    <fragment
-        android:id="@+id/lockFragment"
-        android:name="com.genius.wasylews.notes.presentation.main.fragment.lock.LockFragment"
-        android:label="LockFragment" >
-        <action
-            android:id="@+id/action_unlock"
-            app:destination="@id/noteListFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
+    app:startDestination="@id/unlockFragment">
     <fragment
         android:id="@+id/noteListFragment"
         android:name="com.genius.wasylews.notes.presentation.main.fragment.list.NoteListFragment"
         android:label="NoteListFragment" >
         <action
-            android:id="@+id/action_lock"
-            app:destination="@id/lockFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_add"
+            android:id="@+id/action_add_note"
             app:destination="@id/addNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
         android:name="com.genius.wasylews.notes.presentation.main.fragment.add.AddNoteFragment"
-        android:label="AddNoteFragment" >
+        android:label="AddNoteFragment" />
+    <fragment
+        android:id="@+id/unlockFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.auth.unlock.UnlockFragment"
+        android:label="UnlockFragment" >
         <action
-            android:id="@+id/action_update_list"
-            app:destination="@id/noteListFragment">
-        </action>
+            android:id="@+id/action_get_notes"
+            app:destination="@id/noteListFragment"
+            app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_create_lock"
+            app:destination="@id/lockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lockFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.auth.lock.LockFragment"
+        android:label="LockFragment" >
+        <action
+            android:id="@+id/action_get_notes"
+            app:destination="@id/noteListFragment" />
     </fragment>
 </navigation>

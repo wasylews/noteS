@@ -30,8 +30,12 @@ public class NoteRepository {
         return Single.just(noteDao);
     }
 
-    public Single<List<NoteModel>> getNotes(char[] password) {
+    public Completable openDatabase(char[] password) {
         noteDao = dbFactory.create(password).getNoteDao();
+        return Completable.complete();
+    }
+
+    public Single<List<NoteModel>> getNotes() {
         return getDao().flatMap(NoteDao::getNotes);
     }
 

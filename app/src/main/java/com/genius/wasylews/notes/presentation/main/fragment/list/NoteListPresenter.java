@@ -22,18 +22,17 @@ public class NoteListPresenter extends BasePresenter<NoteListView> {
         this.getNotesUseCase = getNotesUseCase;
     }
 
-    @Override
-    public void loadData() {
-        addDisposable(getNotesUseCase.execute(new DisposableSingleObserver<List<NoteModel>>() {
-            @Override
-            public void onSuccess(List<NoteModel> noteModels) {
-                getViewState().showNotes(noteModels);
-            }
+   public void loadData() {
+       addDisposable(getNotesUseCase.execute(new DisposableSingleObserver<List<NoteModel>>() {
+           @Override
+           public void onSuccess(List<NoteModel> noteModels) {
+               getViewState().showNotes(noteModels);
+           }
 
-            @Override
-            public void onError(Throwable e) {
-                getViewState().showMessage(e.getMessage());
-            }
-        }));
-    }
+           @Override
+           public void onError(Throwable e) {
+               getViewState().showMessage(e.getMessage());
+           }
+       }));
+   }
 }

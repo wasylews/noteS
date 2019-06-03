@@ -27,6 +27,6 @@ public class GetNotesUseCase extends SingleAsyncUseCase<List<NoteModel>> {
 
     @Override
     protected Single<List<NoteModel>> buildTask() {
-        return repository.getNotes(password);
+        return repository.getNotes();
     }
 }

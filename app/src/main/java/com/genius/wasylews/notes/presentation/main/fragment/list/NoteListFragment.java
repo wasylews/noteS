@@ -16,7 +16,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.genius.wasylews.notes.R;
 import com.genius.wasylews.notes.data.db.model.NoteModel;
 import com.genius.wasylews.notes.presentation.base.BaseToolbarFragment;
-import com.genius.wasylews.notes.presentation.main.adapter.NoteAdapter;
+import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.NoteAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -68,7 +68,7 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.item_add:
-                navigate(R.id.action_add);
+                navigate(R.id.action_add_note);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

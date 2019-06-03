@@ -20,8 +20,4 @@ public abstract class BasePresenter<V extends MvpView> extends MvpPresenter<V> {
         super.onDestroy();
         compositeDisposable.clear();
     }
-
-    public void loadData() {
-
-    }
 }
