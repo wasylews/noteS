@@ -13,16 +13,10 @@ import io.reactivex.Single;
 public class GetNotesUseCase extends SingleAsyncUseCase<List<NoteModel>> {
 
     private NoteRepository repository;
-    private char[] password = "pass".toCharArray();
 
     @Inject
     public GetNotesUseCase(NoteRepository repository) {
         this.repository = repository;
-    }
-
-    public GetNotesUseCase with(char[] password) {
-        this.password = password;
-        return this;
     }
 
     @Override
