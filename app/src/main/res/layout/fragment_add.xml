@@ -24,14 +24,17 @@
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="textCapSentences"
+        android:imeOptions="actionNext"
         android:hint="@string/hint_title"/>
 
     <EditText
         android:id="@+id/edit_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:layout_height="match_parent"
+        android:inputType="textCapSentences|textMultiLine"
+        android:gravity="start"
+        android:imeOptions="actionDone"
         android:hint="@string/hint_body"/>
 
 </LinearLayout>

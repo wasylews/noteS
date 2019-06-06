@@ -1,7 +1,9 @@
 package com.genius.wasylews.notes.presentation.main.fragment.add;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.genius.wasylews.notes.R;
+import com.genius.wasylews.notes.data.db.model.NoteModel;
 import com.genius.wasylews.notes.presentation.base.BaseToolbarFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.jakewharton.rxbinding3.widget.RxTextView;
@@ -18,6 +21,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView {
+
+    public static final String KEY_NOTE = "note_model";
 
     @Inject
     @InjectPresenter
@@ -41,6 +46,18 @@ public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView 
 
         presenter.addDisposable(RxTextView.textChanges(noteBodyEdit)
                 .subscribe(text -> presenter.bodyChanged(text.toString())));
+
+        handleArgs(args);
+        presenter.loadData();
+    }
+
+    private void handleArgs(Bundle args) {
+        if (args != null) {
+            NoteModel note = (NoteModel) args.getSerializable(KEY_NOTE);
+            if (note != null) {
+                presenter.setNote(note);
+            }
+        }
     }
 
     @Override
@@ -71,10 +88,23 @@ public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView 
         }
     }
 
+    @Override
+    public void showNote(NoteModel note) {
+        noteTitleEdit.setText(note.getTitle());
+        noteBodyEdit.setText(note.getText());
+        noteBodyEdit.requestFocus();
+    }
+
 
     @Override
     protected boolean onBackPressed() {
+        hideKeyboard();
         presenter.saveNote();
         return true;
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
     }
 }

@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_add_note"
             app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_edit_note"
+            app:destination="@+id/addNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
