@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +18,9 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.genius.wasylews.notes.R;
 import com.genius.wasylews.notes.data.db.model.NoteModel;
 import com.genius.wasylews.notes.presentation.base.BaseToolbarFragment;
+import com.genius.wasylews.notes.presentation.main.fragment.add.AddNoteFragment;
 import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.NoteAdapter;
+import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.SwipeController;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -34,7 +38,19 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.note_list) RecyclerView noteList;
 
-    private NoteAdapter adapter = new NoteAdapter();
+    private NoteAdapter adapter = new NoteAdapter(new NoteAdapter.ItemActionsListener() {
+        @Override
+        public void itemSwiped(NoteModel item) {
+            presenter.removeNote(item);
+        }
+
+        @Override
+        public void itemClicked(NoteModel item) {
+            Bundle args = new Bundle();
+            args.putSerializable(AddNoteFragment.KEY_NOTE, item);
+            navigate(R.id.action_edit_note, args);
+        }
+    });
 
     @ProvidePresenter
     NoteListPresenter providePresenter() {
@@ -46,8 +62,14 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
         super.onViewReady(args);
         getBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        noteList.setLayoutManager(new LinearLayoutManager(getContext()));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(noteList.getContext(),
+                DividerItemDecoration.VERTICAL);
+        noteList.addItemDecoration(itemDecoration);
+        noteList.setLayoutManager(new LinearLayoutManager(requireContext()));
         noteList.setAdapter(adapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeController(adapter));
+        itemTouchHelper.attachToRecyclerView(noteList);
         presenter.loadData();
     }
 
@@ -83,5 +105,10 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
     @Override
     public void showMessage(String message) {
         Snackbar.make(drawerLayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showNoteRemoved(NoteModel note) {
+        adapter.removeItem(note);
     }
 }

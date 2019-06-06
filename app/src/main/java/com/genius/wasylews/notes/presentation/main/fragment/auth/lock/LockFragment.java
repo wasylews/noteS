@@ -50,7 +50,7 @@ public class LockFragment extends BaseFragment implements LockView {
                 }));
 
         presenter.addDisposable(RxView.clicks(createButton).subscribe(unit ->
-                presenter.createDatabase(getActivity(), checkFingerprint.isChecked())));
+                presenter.createDatabase(requireActivity(), checkFingerprint.isChecked())));
     }
 
     @Override

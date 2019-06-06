@@ -15,7 +15,7 @@ import java.util.Date;
 public class NoteModel implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private Integer id;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -30,7 +30,7 @@ public class NoteModel implements Serializable {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

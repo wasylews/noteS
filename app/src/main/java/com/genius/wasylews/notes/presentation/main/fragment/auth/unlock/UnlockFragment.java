@@ -37,7 +37,7 @@ public class UnlockFragment extends BaseFragment implements UnlockView {
                 presenter.passwordUnlock(passwordEdit.getText().toString().toCharArray())));
 
         presenter.addDisposable(RxView.clicks(fingerprintAuthButton).subscribe(unit ->
-                presenter.fingerprintUnlock(getActivity())));
+                presenter.fingerprintUnlock(requireActivity())));
     }
 
     @Override

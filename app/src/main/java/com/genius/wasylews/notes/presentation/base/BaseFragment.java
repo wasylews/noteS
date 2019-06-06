@@ -82,7 +82,7 @@ public abstract class BaseFragment extends DaggerFragment {
     }
 
     protected BaseActivity getBaseActivity() {
-        return ((BaseActivity) getActivity());
+        return ((BaseActivity) requireActivity());
     }
 
     @Override
