@@ -14,5 +14,7 @@ public interface NoteListView extends MvpView {
     void showMessage(String message);
 
     @StateStrategyType(OneExecutionStateStrategy.class)
-    void showNoteRemoved(NoteModel note);
+    void showNoteRemoved(NoteModel note, int position);
+
+    void showNoteInserted(NoteModel note, int position);
 }

@@ -12,12 +12,14 @@
     <string name="message_password_description">Place your finger on the fingerprint sensor</string>
     <string name="message_required_field">This field is required</string>
     <string name="message_passwords_dont_match">Passwords don\'t match</string>
+    <string name="message_note_removed">Note removed</string>
 
     <!--titles-->
     <string name="title_fingerprint">Fingerprint authentication</string>
     <string name="title_password">Password authentication</string>
     <string name="title_create">Create database</string>
     <string name="title_unlock">Unlock</string>
+    <string name="title_undo">Undo</string>
 
     <!--hints-->
     <string name="hint_title">Title</string>

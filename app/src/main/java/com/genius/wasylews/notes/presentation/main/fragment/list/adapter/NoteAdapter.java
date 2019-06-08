@@ -26,9 +26,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
 
     public interface ItemActionsListener {
 
-        void itemSwiped(NoteModel item);
+        void itemSwiped(int position);
 
-        void itemClicked(NoteModel item);
+        void itemClicked(int position);
     }
 
     public NoteAdapter(ItemActionsListener listener) {
@@ -41,10 +41,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         notifyDataSetChanged();
     }
 
-    public void removeItem(NoteModel item) {
-        int position = items.indexOf(item);
-        items.remove(item);
+    public void insertItem(NoteModel item, int position) {
+        items.add(position, item);
+        notifyItemInserted(position);
+    }
+
+    public void removeItem(int position) {
+        items.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public NoteModel getItem(int position) {
+        return items.get(position);
     }
 
     @NonNull
@@ -68,7 +76,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
 
     @Override
     public void onItemSwiped(int position) {
-        listener.itemSwiped(items.get(position));
+        listener.itemSwiped(position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements SwipeAdapter.SwipeViewHolder {
@@ -98,7 +106,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
                 noteBody.setText(note.getText());
             }
 
-            itemView.setOnClickListener(v -> listener.itemClicked(note));
+            itemView.setOnClickListener(v -> listener.itemClicked(getAdapterPosition()));
         }
 
         @Override

@@ -42,15 +42,18 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
     @BindView(R.id.fab_add) FloatingActionButton addNoteFab;
 
     private NoteAdapter adapter = new NoteAdapter(new NoteAdapter.ItemActionsListener() {
+
         @Override
-        public void itemSwiped(NoteModel item) {
-            presenter.removeNote(item);
+        public void itemSwiped(int position) {
+            // removing item from db because user can close app before snackbar will be dismissed
+            // so we can't trust callbacks for removing item from db
+            presenter.removeNote(adapter.getItem(position), position);
         }
 
         @Override
-        public void itemClicked(NoteModel item) {
+        public void itemClicked(int position) {
             Bundle args = new Bundle();
-            args.putSerializable(AddNoteFragment.KEY_NOTE, item);
+            args.putSerializable(AddNoteFragment.KEY_NOTE, adapter.getItem(position));
             navigate(R.id.action_edit_note, args);
         }
     });
@@ -112,7 +115,16 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
     }
 
     @Override
-    public void showNoteRemoved(NoteModel note) {
-        adapter.removeItem(note);
+    public void showNoteRemoved(NoteModel note, int position) {
+        adapter.removeItem(position);
+
+        Snackbar.make(drawerLayout, R.string.message_note_removed, Snackbar.LENGTH_LONG)
+                .setAction(R.string.title_undo, v -> presenter.insertNote(note, position))
+                .show();
+    }
+
+    @Override
+    public void showNoteInserted(NoteModel note, int position) {
+        adapter.insertItem(note, position);
     }
 }

@@ -2,6 +2,7 @@ package com.genius.wasylews.notes.presentation.main.fragment.list;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.genius.wasylews.notes.data.db.model.NoteModel;
+import com.genius.wasylews.notes.domain.usecase.AddNoteUseCase;
 import com.genius.wasylews.notes.domain.usecase.GetNotesUseCase;
 import com.genius.wasylews.notes.domain.usecase.RemoveNoteUseCase;
 import com.genius.wasylews.notes.presentation.base.BasePresenter;
@@ -17,13 +18,16 @@ import io.reactivex.observers.DisposableSingleObserver;
 public class NoteListPresenter extends BasePresenter<NoteListView> {
 
     private GetNotesUseCase getNotesUseCase;
+    private AddNoteUseCase addNoteUseCase;
     private RemoveNoteUseCase removeNoteUseCase;
 
     @Inject
     public NoteListPresenter(GetNotesUseCase getNotesUseCase,
+                             AddNoteUseCase addNoteUseCase,
                              RemoveNoteUseCase removeNoteUseCase) {
         super();
         this.getNotesUseCase = getNotesUseCase;
+        this.addNoteUseCase = addNoteUseCase;
         this.removeNoteUseCase = removeNoteUseCase;
     }
 
@@ -41,11 +45,25 @@ public class NoteListPresenter extends BasePresenter<NoteListView> {
        }));
    }
 
-    public void removeNote(NoteModel note) {
+    public void removeNote(NoteModel note, int position) {
         addDisposable(removeNoteUseCase.with(note).execute(new DisposableCompletableObserver() {
             @Override
             public void onComplete() {
-                getViewState().showNoteRemoved(note);
+                getViewState().showNoteRemoved(note, position);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getViewState().showMessage(e.getMessage());
+            }
+        }));
+    }
+
+    public void insertNote(NoteModel note, int position) {
+        addDisposable(addNoteUseCase.with(note).execute(new DisposableCompletableObserver() {
+            @Override
+            public void onComplete() {
+                getViewState().showNoteInserted(note, position);
             }
 
             @Override
