@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -14,8 +16,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -24,17 +26,22 @@
         android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textCapSentences"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:background="@android:color/transparent"
+        android:hint="@string/hint_title"
         android:imeOptions="actionNext"
-        android:hint="@string/hint_title"/>
+        android:inputType="textCapSentences"
+        android:padding="@dimen/margin_small" />
 
     <EditText
         android:id="@+id/edit_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:inputType="textCapSentences|textMultiLine"
+        android:background="@android:color/transparent"
         android:gravity="start"
+        android:hint="@string/hint_body"
         android:imeOptions="actionDone"
-        android:hint="@string/hint_body"/>
+        android:inputType="textCapSentences|textMultiLine"
+        android:padding="@dimen/margin_small" />
 
 </LinearLayout>

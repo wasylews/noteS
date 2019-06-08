@@ -1,6 +1,7 @@
 package com.genius.wasylews.notes.presentation.main;
 
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import androidx.lifecycle.LifecycleObserver;
 
@@ -24,8 +25,8 @@ public class MainActivity extends BaseActivity implements MainView, LifecycleObs
 
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-//                WindowManager.LayoutParams.FLAG_SECURE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     @Override

@@ -35,20 +35,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> im
         this.listener = listener;
     }
 
-    public void addItem(NoteModel item) {
-        items.add(item);
-        notifyItemInserted(items.size());
-    }
-
     public void setItems(List<NoteModel> noteModels) {
         items.clear();
         items.addAll(noteModels);
         notifyDataSetChanged();
-    }
-
-    public void updateItem(NoteModel item, int position) {
-        items.set(position, item);
-        notifyItemChanged(position);
     }
 
     public void removeItem(NoteModel item) {

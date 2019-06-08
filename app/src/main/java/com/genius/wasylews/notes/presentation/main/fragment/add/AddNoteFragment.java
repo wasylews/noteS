@@ -2,6 +2,7 @@ package com.genius.wasylews.notes.presentation.main.fragment.add;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -67,13 +68,11 @@ public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView 
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -92,7 +91,9 @@ public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView 
     public void showNote(NoteModel note) {
         noteTitleEdit.setText(note.getTitle());
         noteBodyEdit.setText(note.getText());
-        noteBodyEdit.requestFocus();
+        if (TextUtils.isEmpty(note.getText())) {
+            showKeyboard(noteBodyEdit);
+        }
     }
 
 
@@ -106,5 +107,14 @@ public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView 
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(requireView().getWindowToken(), 0);
+    }
+
+    private void showKeyboard(EditText view) {
+        view.post(() -> {
+            view.requestFocus();
+            view.setSelection(view.getText().length());
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        });
     }
 }

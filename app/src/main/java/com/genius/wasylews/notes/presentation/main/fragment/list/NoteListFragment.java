@@ -21,7 +21,9 @@ import com.genius.wasylews.notes.presentation.base.BaseToolbarFragment;
 import com.genius.wasylews.notes.presentation.main.fragment.add.AddNoteFragment;
 import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.NoteAdapter;
 import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.SwipeController;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.jakewharton.rxbinding3.view.RxView;
 
 import java.util.List;
 
@@ -37,6 +39,7 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.note_list) RecyclerView noteList;
+    @BindView(R.id.fab_add) FloatingActionButton addNoteFab;
 
     private NoteAdapter adapter = new NoteAdapter(new NoteAdapter.ItemActionsListener() {
         @Override
@@ -62,6 +65,13 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
         super.onViewReady(args);
         getBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        presenter.addDisposable(RxView.clicks(addNoteFab).subscribe(unit -> navigate(R.id.action_add_note)));
+
+        initNoteList();
+        presenter.loadData();
+    }
+
+    private void initNoteList() {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(noteList.getContext(),
                 DividerItemDecoration.VERTICAL);
         noteList.addItemDecoration(itemDecoration);
@@ -70,7 +80,6 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeController(adapter));
         itemTouchHelper.attachToRecyclerView(noteList);
-        presenter.loadData();
     }
 
     @Override
@@ -85,16 +94,11 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            case R.id.item_add:
-                navigate(R.id.action_add_note);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

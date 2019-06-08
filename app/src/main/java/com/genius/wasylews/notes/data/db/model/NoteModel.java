@@ -1,5 +1,6 @@
 package com.genius.wasylews.notes.data.db.model;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -34,6 +35,7 @@ public class NoteModel implements Serializable {
         return id;
     }
 
+    @Nullable
     public String getTitle() {
         return title;
     }
@@ -42,6 +44,7 @@ public class NoteModel implements Serializable {
         this.title = title;
     }
 
+    @Nullable
     public String getText() {
         return text;
     }
