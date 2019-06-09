@@ -4,8 +4,8 @@ import android.text.TextUtils;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.genius.wasylews.notes.data.db.model.NoteModel;
-import com.genius.wasylews.notes.domain.usecase.AddNoteUseCase;
-import com.genius.wasylews.notes.domain.usecase.UpdateNoteUseCase;
+import com.genius.wasylews.notes.domain.usecase.notes.AddNoteUseCase;
+import com.genius.wasylews.notes.domain.usecase.notes.UpdateNoteUseCase;
 import com.genius.wasylews.notes.presentation.base.BasePresenter;
 
 import javax.inject.Inject;

@@ -1,11 +1,13 @@
 package com.genius.wasylews.notes.presentation.main.fragment.list;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,9 +25,11 @@ import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.NoteAda
 import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.SwipeController;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.jakewharton.rxbinding3.appcompat.RxSearchView;
 import com.jakewharton.rxbinding3.view.RxView;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -93,6 +97,12 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_toolbar, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.item_search).getActionView();
+        presenter.addDisposable(RxSearchView.queryTextChanges(searchView)
+                .debounce(200, TimeUnit.MILLISECONDS)
+                .map(CharSequence::toString)
+                .subscribe(text -> presenter.searchNotes(text)));
     }
 
     @Override

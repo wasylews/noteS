@@ -1,4 +1,4 @@
-package com.genius.wasylews.notes.domain.usecase;
+package com.genius.wasylews.notes.domain.usecase.notes;
 
 import com.genius.wasylews.notes.data.db.model.NoteModel;
 import com.genius.wasylews.notes.domain.base.completable.CompletableAsyncUseCase;
@@ -8,23 +8,23 @@ import javax.inject.Inject;
 
 import io.reactivex.Completable;
 
-public class AddNoteUseCase extends CompletableAsyncUseCase {
+public class RemoveNoteUseCase extends CompletableAsyncUseCase {
 
     private NoteRepository repository;
     private NoteModel note;
 
     @Inject
-    public AddNoteUseCase(NoteRepository repository) {
+    public RemoveNoteUseCase(NoteRepository repository) {
         this.repository = repository;
     }
 
-    public AddNoteUseCase with(NoteModel note) {
+    public RemoveNoteUseCase with(NoteModel note) {
         this.note = note;
         return this;
     }
 
     @Override
     protected Completable buildTask() {
-        return repository.addNote(note);
+        return repository.removeNote(note);
     }
 }

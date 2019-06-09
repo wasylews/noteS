@@ -1,4 +1,4 @@
-package com.genius.wasylews.notes.domain.usecase;
+package com.genius.wasylews.notes.domain.usecase.notes;
 
 import com.genius.wasylews.notes.data.db.model.NoteModel;
 import com.genius.wasylews.notes.domain.base.completable.CompletableAsyncUseCase;

@@ -50,4 +50,8 @@ public class NoteRepository {
     public Completable removeNote(NoteModel note) {
         return getDao().flatMapCompletable(dao -> dao.removeNote(note));
     }
+
+    public Single<List<NoteModel>> searchNotes(String query) {
+        return getDao().flatMap(dao -> dao.searchNotes(query));
+    }
 }

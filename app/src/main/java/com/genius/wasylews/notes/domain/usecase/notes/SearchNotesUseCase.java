@@ -1,4 +1,4 @@
-package com.genius.wasylews.notes.domain.usecase;
+package com.genius.wasylews.notes.domain.usecase.notes;
 
 import com.genius.wasylews.notes.data.db.model.NoteModel;
 import com.genius.wasylews.notes.domain.base.single.SingleAsyncUseCase;
@@ -10,17 +10,23 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-public class GetNotesUseCase extends SingleAsyncUseCase<List<NoteModel>> {
+public class SearchNotesUseCase extends SingleAsyncUseCase<List<NoteModel>> {
 
     private NoteRepository repository;
+    private String query;
 
     @Inject
-    public GetNotesUseCase(NoteRepository repository) {
+    public SearchNotesUseCase(NoteRepository repository) {
         this.repository = repository;
+    }
+
+    public SearchNotesUseCase with(String query) {
+        this.query = query;
+        return this;
     }
 
     @Override
     protected Single<List<NoteModel>> buildTask() {
-        return repository.getNotes();
+        return repository.searchNotes(query);
     }
 }

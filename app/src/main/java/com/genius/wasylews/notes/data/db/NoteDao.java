@@ -19,9 +19,6 @@ public interface NoteDao {
     @Query("select * from notes")
     Single<List<NoteModel>> getNotes();
 
-    @Query("select * from notes where id = :id")
-    Single<NoteModel> getNote(long id);
-
     @Insert
     Completable addNote(NoteModel note);
 
@@ -31,6 +28,6 @@ public interface NoteDao {
     @Delete
     Completable removeNote(NoteModel note);
 
-//    @Query("select max(update_date) from notes")
-//    Single<Date> getUpdateDate();
+    @Query("select * from notes where title like '%' || :query || '%' or text like '%' || :query || '%'")
+    Single<List<NoteModel>> searchNotes(String query);
 }
