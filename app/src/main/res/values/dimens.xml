@@ -6,7 +6,12 @@
 
     <!--Margins-->
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="margin_big">20dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_top">220dp</dimen>
+
+    <!--Font sizes-->
+    <dimen name="font_size_medium">16sp</dimen>
 
 </resources>

@@ -27,19 +27,22 @@
         android:id="@+id/card_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentPadding="@dimen/margin_small"
         app:cardCornerRadius="4dp"
         android:elevation="3dp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_small"
+            android:paddingTop="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_small">
 
             <TextView
                 android:id="@+id/note_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
                 tools:text="Note title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
 
@@ -48,10 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Note body"
-                android:layout_marginTop="@dimen/margin_small"
                 android:ellipsize="end"
                 android:maxLines="5"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                android:textAppearance="@style/AppTheme.NoteBody" />
 
         </LinearLayout>
 

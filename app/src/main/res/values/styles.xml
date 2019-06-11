@@ -14,4 +14,8 @@
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
+    <style name="AppTheme.NoteBody" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/font_size_medium</item>
+    </style>
+
 </resources>
