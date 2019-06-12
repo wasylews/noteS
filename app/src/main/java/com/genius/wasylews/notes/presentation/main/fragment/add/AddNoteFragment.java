@@ -49,7 +49,7 @@ public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView 
                 .subscribe(text -> presenter.bodyChanged(text.toString())));
 
         handleArgs(args);
-        presenter.loadData();
+        presenter.loadNote();
     }
 
     private void handleArgs(Bundle args) {
@@ -95,7 +95,6 @@ public class AddNoteFragment extends BaseToolbarFragment implements AddNoteView 
             showKeyboard(noteBodyEdit);
         }
     }
-
 
     @Override
     protected boolean onBackPressed() {

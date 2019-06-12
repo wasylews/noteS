@@ -31,6 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/margin_large"
-        android:text="@string/hint_use_fingerprint"/>
+        android:text="@string/hint_use_fingerprint"
+        android:visibility="gone"/>
 
 </RelativeLayout>

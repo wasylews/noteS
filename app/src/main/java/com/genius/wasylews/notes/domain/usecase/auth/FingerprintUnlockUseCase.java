@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.genius.wasylews.notes.domain.base.completable.CompletableAsyncUseCase;
 import com.genius.wasylews.notes.domain.utils.StringArrayUtils;
-import com.genius.wasylews.notes.presentation.utils.AuthHelper;
+import com.genius.wasylews.notes.presentation.utils.PrefsHelper;
 import com.github.pwittchen.rxbiometric.library.throwable.AuthenticationFail;
 
 import javax.crypto.Cipher;
@@ -18,16 +18,16 @@ import io.reactivex.Completable;
 public class FingerprintUnlockUseCase extends CompletableAsyncUseCase {
 
     private FingerprintAuthUseCase fingerprintAuthUseCase;
-    private AuthHelper authHelper;
+    private PrefsHelper prefsHelper;
     private PasswordUnlockUseCase passwordUnlockUseCase;
     private FragmentActivity activity;
 
     @Inject
     public FingerprintUnlockUseCase(FingerprintAuthUseCase fingerprintAuthUseCase,
-                                    AuthHelper authHelper,
+                                    PrefsHelper prefsHelper,
                                     PasswordUnlockUseCase passwordUnlockUseCase) {
         this.fingerprintAuthUseCase = fingerprintAuthUseCase;
-        this.authHelper = authHelper;
+        this.prefsHelper = prefsHelper;
         this.passwordUnlockUseCase = passwordUnlockUseCase;
     }
 
@@ -38,7 +38,7 @@ public class FingerprintUnlockUseCase extends CompletableAsyncUseCase {
 
     @Override
     protected Completable buildTask() {
-        String encryptedCredits = new String(Base64.decode(authHelper.getEncryptedPassword(), Base64.DEFAULT));
+        String encryptedCredits = new String(Base64.decode(prefsHelper.getEncryptedPassword(), Base64.DEFAULT));
         if (!TextUtils.isEmpty(encryptedCredits)) {
             String[] parts = encryptedCredits.split(FingerprintLockUseCase.SEPARATOR);
             byte[] iv = Base64.decode(parts[1], Base64.DEFAULT);

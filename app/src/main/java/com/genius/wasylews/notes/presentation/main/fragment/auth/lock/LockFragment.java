@@ -1,6 +1,7 @@
 package com.genius.wasylews.notes.presentation.main.fragment.auth.lock;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -38,9 +39,9 @@ public class LockFragment extends BaseFragment implements LockView {
         presenter.addDisposable(RxTextView.textChanges(passwordEdit)
                 .map(charSequence -> charSequence.toString().toCharArray())
                 .subscribe(text -> {
-            passwordEdit.setError(null);
-            presenter.passwordChanged(text);
-        }));
+                    passwordEdit.setError(null);
+                    presenter.passwordChanged(text);
+                }));
 
         presenter.addDisposable(RxTextView.textChanges(confirmPasswordEdit)
                 .map(charSequence -> charSequence.toString().toCharArray())
@@ -88,5 +89,10 @@ public class LockFragment extends BaseFragment implements LockView {
     @Override
     public void showPasswordsDontMatch() {
         confirmPasswordEdit.setError(getString(R.string.message_passwords_dont_match));
+    }
+
+    @Override
+    public void showFingerprintSupported() {
+        checkFingerprint.setVisibility(View.VISIBLE);
     }
 }

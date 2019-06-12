@@ -37,7 +37,7 @@ public class NoteListPresenter extends BasePresenter<NoteListView> {
         this.searchNotesUseCase = searchNotesUseCase;
     }
 
-   public void loadData() {
+   public void loadNotes() {
        addDisposable(getNotesUseCase.execute(new DisposableSingleObserver<List<NoteModel>>() {
            @Override
            public void onSuccess(List<NoteModel> noteModels) {
@@ -81,7 +81,7 @@ public class NoteListPresenter extends BasePresenter<NoteListView> {
 
     public void searchNotes(String query) {
         if (TextUtils.isEmpty(query)) {
-            loadData();
+            loadNotes();
             return;
         }
         addDisposable(searchNotesUseCase.with(query).execute(new DisposableSingleObserver<List<NoteModel>>() {

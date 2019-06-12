@@ -3,9 +3,11 @@ package com.genius.wasylews.notes.di.module;
 import android.content.Context;
 
 import androidx.annotation.Nullable;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.genius.wasylews.notes.App;
-import com.genius.wasylews.notes.presentation.utils.AuthHelper;
+import com.genius.wasylews.notes.presentation.utils.FingerprintHelper;
+import com.genius.wasylews.notes.presentation.utils.PrefsHelper;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -28,8 +30,14 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    static AuthHelper provideAuthHelper(Context context) {
-        return new AuthHelper(context);
+    static PrefsHelper provideAuthHelper(Context context) {
+        return new PrefsHelper(context);
+    }
+
+    @Provides
+    @Singleton
+    static FingerprintHelper provideFingerprintHelper(Context context) {
+        return new FingerprintHelper(FingerprintManagerCompat.from(context));
     }
 
     @Provides

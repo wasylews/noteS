@@ -3,6 +3,7 @@ package com.genius.wasylews.notes.domain.usecase.auth;
 import android.os.Build;
 import android.os.Handler;
 
+import androidx.annotation.Nullable;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.FragmentActivity;
 
@@ -35,7 +36,7 @@ public class FingerprintAuthUseCase extends SingleAsyncUseCase<Cipher> {
 
     @Inject
     public FingerprintAuthUseCase(BiometricPrompt.CryptoObject cryptoObject,
-                                  Key authKey) {
+                                  @Nullable Key authKey) {
         this.cryptoObject = cryptoObject;
         this.authKey = authKey;
     }
@@ -68,7 +69,7 @@ public class FingerprintAuthUseCase extends SingleAsyncUseCase<Cipher> {
     @Override
     protected Single<Cipher> buildTask() {
         try {
-            if (cryptoObject.getCipher() != null) {
+            if (cryptoObject.getCipher() != null && authKey != null) {
                 if (mode == Cipher.ENCRYPT_MODE) {
                     cryptoObject.getCipher().init(mode, authKey);
                 } else {

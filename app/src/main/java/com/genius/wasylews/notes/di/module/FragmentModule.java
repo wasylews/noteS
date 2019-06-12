@@ -4,6 +4,7 @@ import com.genius.wasylews.notes.presentation.main.fragment.add.AddNoteFragment;
 import com.genius.wasylews.notes.presentation.main.fragment.auth.lock.LockFragment;
 import com.genius.wasylews.notes.presentation.main.fragment.auth.unlock.UnlockFragment;
 import com.genius.wasylews.notes.presentation.main.fragment.list.NoteListFragment;
+import com.genius.wasylews.notes.presentation.main.fragment.settings.SettingsFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -22,4 +23,7 @@ public interface FragmentModule {
 
     @ContributesAndroidInjector
     AddNoteFragment addNoteFragment();
+
+    @ContributesAndroidInjector
+    SettingsFragment settingsFragment();
 }

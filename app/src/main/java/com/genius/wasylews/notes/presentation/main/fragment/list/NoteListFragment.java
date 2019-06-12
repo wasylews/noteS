@@ -1,7 +1,6 @@
 package com.genius.wasylews.notes.presentation.main.fragment.list;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +23,7 @@ import com.genius.wasylews.notes.presentation.main.fragment.add.AddNoteFragment;
 import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.NoteAdapter;
 import com.genius.wasylews.notes.presentation.main.fragment.list.adapter.SwipeController;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.jakewharton.rxbinding3.appcompat.RxSearchView;
 import com.jakewharton.rxbinding3.view.RxView;
@@ -42,6 +42,7 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
     NoteListPresenter presenter;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.nav_view) NavigationView navView;
     @BindView(R.id.note_list) RecyclerView noteList;
     @BindView(R.id.fab_add) FloatingActionButton addNoteFab;
 
@@ -50,7 +51,7 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
         @Override
         public void itemSwiped(int position) {
             // removing item from db because user can close app before snackbar will be dismissed
-            // so we can't trust callbacks for removing item from db
+            // and there will not be onDismissed callback
             presenter.removeNote(adapter.getItem(position), position);
         }
 
@@ -72,10 +73,18 @@ public class NoteListFragment extends BaseToolbarFragment implements NoteListVie
         super.onViewReady(args);
         getBaseActivity().getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        navView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.settings) {
+                navigate(R.id.action_settings);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+            return false;
+        });
+
         presenter.addDisposable(RxView.clicks(addNoteFab).subscribe(unit -> navigate(R.id.action_add_note)));
 
         initNoteList();
-        presenter.loadData();
+        presenter.loadNotes();
     }
 
     private void initNoteList() {

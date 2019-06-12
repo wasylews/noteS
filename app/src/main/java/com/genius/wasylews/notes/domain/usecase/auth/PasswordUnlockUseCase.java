@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import com.genius.wasylews.notes.domain.base.completable.CompletableAsyncUseCase;
 import com.genius.wasylews.notes.domain.repository.NoteRepository;
 import com.genius.wasylews.notes.domain.utils.StringArrayUtils;
-import com.genius.wasylews.notes.presentation.utils.AuthHelper;
+import com.genius.wasylews.notes.presentation.utils.PrefsHelper;
 
 import java.security.MessageDigest;
 
@@ -18,16 +18,16 @@ import io.reactivex.Completable;
 public class PasswordUnlockUseCase extends CompletableAsyncUseCase {
 
     private MessageDigest sha256;
-    private AuthHelper authHelper;
+    private PrefsHelper prefsHelper;
     private NoteRepository repository;
     private char[] password;
 
     @Inject
     public PasswordUnlockUseCase(@Nullable MessageDigest sha256,
-                                 AuthHelper authHelper,
+                                 PrefsHelper prefsHelper,
                                  NoteRepository repository) {
         this.sha256 = sha256;
-        this.authHelper = authHelper;
+        this.prefsHelper = prefsHelper;
         this.repository = repository;
     }
 
@@ -39,7 +39,7 @@ public class PasswordUnlockUseCase extends CompletableAsyncUseCase {
     @Override
     protected Completable buildTask() {
         return Completable.fromCallable(() -> {
-            byte[] passwordHash = Base64.decode(authHelper.getPasswordHash(), Base64.DEFAULT);
+            byte[] passwordHash = Base64.decode(prefsHelper.getPasswordHash(), Base64.DEFAULT);
             byte[] currentPasswordHash = sha256.digest(StringArrayUtils.toString(password).getBytes());
 
             if (StringArrayUtils.equals(currentPasswordHash, passwordHash)) {

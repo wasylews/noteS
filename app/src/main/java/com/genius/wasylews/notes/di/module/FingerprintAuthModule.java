@@ -3,6 +3,7 @@ package com.genius.wasylews.notes.di.module;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 
+import androidx.annotation.Nullable;
 import androidx.biometric.BiometricPrompt;
 
 import com.genius.wasylews.notes.BuildConfig;
@@ -66,7 +67,8 @@ public class FingerprintAuthModule {
         try {
             generator = KeyGenerator.getInstance(KEY_ALGORITHM, ANDROID_KEYSTORE_NAME);
             generator.init(keyGenSpec);
-        } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidAlgorithmParameterException e) {
+        } catch (NoSuchAlgorithmException | NoSuchProviderException |
+                InvalidAlgorithmParameterException | IllegalStateException e) {
             e.printStackTrace();
         }
         return generator;
@@ -74,6 +76,7 @@ public class FingerprintAuthModule {
 
     @Provides
     @Singleton
+    @Nullable
     Key provideKey(KeyStore keyStore, KeyGenerator keyGenerator) {
         Key key = null;
         try {
@@ -82,7 +85,8 @@ public class FingerprintAuthModule {
                 keyGenerator.generateKey();
             }
             key = keyStore.getKey(KEY_NAME, null);
-        } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
+        } catch (KeyStoreException | NoSuchAlgorithmException |
+                 IllegalStateException | UnrecoverableKeyException e) {
             e.printStackTrace();
         }
         return key;

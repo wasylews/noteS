@@ -10,16 +10,18 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class AuthHelper {
+public class PrefsHelper {
 
     private static final String PREFS_NAME = "shared_prefs";
     private static final String KEY_ENCRYPTED_PASSWORD = "password";
     private static final String KEY_PASSWORD_HASH = "password_hash";
+    private static final String KEY_DARK_THEME = "dark_theme";
+    private static final String KEY_USE_FINGERPRINT = "use_fingerprint";
 
     private SharedPreferences prefs;
 
     @Inject
-    public AuthHelper(Context context) {
+    public PrefsHelper(Context context) {
         prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
@@ -43,5 +45,21 @@ public class AuthHelper {
 
     public boolean lockExists() {
         return getPasswordHash() != null;
+    }
+
+    public boolean isDarkThemeEnabled() {
+        return prefs.getBoolean(KEY_DARK_THEME, false);
+    }
+
+    public void setDarkThemeEnabled(boolean enabled) {
+        prefs.edit().putBoolean(KEY_DARK_THEME, enabled).apply();
+    }
+
+    public boolean useFingerprintUnlock() {
+        return prefs.getBoolean(KEY_USE_FINGERPRINT, false);
+    }
+
+    public void setUseFingerprintUnlock(boolean use) {
+        prefs.edit().putBoolean(KEY_USE_FINGERPRINT, use).apply();
     }
 }

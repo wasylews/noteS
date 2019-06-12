@@ -85,7 +85,7 @@ public class AddNotePresenter extends BasePresenter<AddNoteView> {
         this.note = note;
     }
 
-    public void loadData() {
+    public void loadNote() {
         getViewState().showNote(note);
     }
 }

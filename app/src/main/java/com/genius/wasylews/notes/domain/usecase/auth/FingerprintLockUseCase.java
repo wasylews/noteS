@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.genius.wasylews.notes.domain.base.completable.CompletableAsyncUseCase;
 import com.genius.wasylews.notes.domain.utils.StringArrayUtils;
-import com.genius.wasylews.notes.presentation.utils.AuthHelper;
+import com.genius.wasylews.notes.presentation.utils.PrefsHelper;
 
 import javax.crypto.Cipher;
 import javax.inject.Inject;
@@ -17,17 +17,17 @@ public class FingerprintLockUseCase extends CompletableAsyncUseCase {
 
     public static final String SEPARATOR = ":";
     private FingerprintAuthUseCase fingerprintAuthUseCase;
-    private AuthHelper authHelper;
+    private PrefsHelper prefsHelper;
     private PasswordLockUseCase passwordLockUseCase;
     private FragmentActivity activity;
     private char[] password;
 
     @Inject
     public FingerprintLockUseCase(FingerprintAuthUseCase fingerprintAuthUseCase,
-                                  AuthHelper authHelper,
+                                  PrefsHelper prefsHelper,
                                   PasswordLockUseCase passwordLockUseCase) {
         this.fingerprintAuthUseCase = fingerprintAuthUseCase;
-        this.authHelper = authHelper;
+        this.prefsHelper = prefsHelper;
         this.passwordLockUseCase = passwordLockUseCase;
     }
 
@@ -54,7 +54,7 @@ public class FingerprintLockUseCase extends CompletableAsyncUseCase {
                             .toString()
                             .getBytes();
                     String base64Credits = Base64.encodeToString(encryptedCredits, Base64.DEFAULT);
-                    authHelper.setEncryptedPassword(base64Credits);
+                    prefsHelper.setEncryptedPassword(base64Credits);
 
                     // Using password lock use case for storing hash
                    return passwordLockUseCase.with(password).buildTask();

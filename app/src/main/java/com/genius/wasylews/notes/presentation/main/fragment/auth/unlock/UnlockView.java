@@ -13,4 +13,8 @@ public interface UnlockView extends MvpView {
     void showPasswordRequired();
 
     void showCreateLock();
+
+    void showFingerprintUnlock();
+
+    void showEnableFingerprint();
 }

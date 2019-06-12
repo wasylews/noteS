@@ -15,4 +15,6 @@ public interface LockView extends MvpView {
     void showConfirmPasswordRequired();
 
     void showPasswordsDontMatch();
+
+    void showFingerprintSupported();
 }
