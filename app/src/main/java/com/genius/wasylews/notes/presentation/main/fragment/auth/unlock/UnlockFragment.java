@@ -16,6 +16,7 @@ import com.genius.wasylews.notes.presentation.base.BaseFragment;
 import com.github.pwittchen.rxbiometric.library.validation.RxPreconditions;
 import com.google.android.material.snackbar.Snackbar;
 import com.jakewharton.rxbinding3.view.RxView;
+import com.jakewharton.rxbinding3.widget.RxTextView;
 
 import javax.inject.Inject;
 
@@ -42,8 +43,15 @@ public class UnlockFragment extends BaseFragment implements UnlockView {
 
     @Override
     protected void onViewReady(Bundle args) {
+        presenter.addDisposable(RxTextView.textChanges(passwordEdit)
+                .map(charSequence -> charSequence.toString().toCharArray())
+                .subscribe(text -> {
+                    passwordEdit.setError(null);
+                    presenter.passwordChanged(text);
+                }));
+
         presenter.addDisposable(RxView.clicks(unlockButton).subscribe(unit ->
-                presenter.unlockDatabase(passwordEdit.getText().toString().toCharArray())));
+                presenter.unlockDatabase()));
 
         presenter.addDisposable(RxView.clicks(fingerprintAuthButton).subscribe(unit ->
                 presenter.fingerprintUnlock(requireActivity())));
@@ -79,7 +87,7 @@ public class UnlockFragment extends BaseFragment implements UnlockView {
 
     @Override
     public void showPasswordRequired() {
-        showMessage(getString(R.string.message_required_field));
+        passwordEdit.setError(getString(R.string.message_required_field));
     }
 
     @Override

@@ -24,6 +24,7 @@ public class UnlockPresenter extends BasePresenter<UnlockView> {
     private PasswordUnlockUseCase passwordUnlockUseCase;
     private PrefsHelper prefsHelper;
     private FingerprintHelper fingerprintHelper;
+    private char[] password;
 
     @Inject
     public UnlockPresenter(FingerprintUnlockUseCase fingerprintUnlockUseCase,
@@ -53,7 +54,7 @@ public class UnlockPresenter extends BasePresenter<UnlockView> {
         }
     }
 
-    public void unlockDatabase(char[] password) {
+    public void unlockDatabase() {
         if (!prefsHelper.useFingerprintUnlock() && fingerprintHelper.canAuthenticate()) {
             getViewState().showEnableFingerprint();
         } else {
@@ -110,5 +111,9 @@ public class UnlockPresenter extends BasePresenter<UnlockView> {
                 getViewState().showMessage(e.getMessage());
             }
         }));
+    }
+
+    public void passwordChanged(char[] password) {
+        this.password = password;
     }
 }
