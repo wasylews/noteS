@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/unlockFragment">
+    <fragment
+        android:id="@+id/noteListFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.list.NoteListFragment"
+        android:label="NoteListFragment" >
+        <action
+            android:id="@+id/action_add_note"
+            app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_edit_note"
+            app:destination="@+id/addNoteFragment" />
+        <action
+            android:id="@+id/action_settings"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.add.AddNoteFragment"
+        android:label="AddNoteFragment" />
+    <fragment
+        android:id="@+id/unlockFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.auth.unlock.UnlockFragment"
+        android:label="UnlockFragment" >
+        <action
+            android:id="@+id/action_get_notes"
+            app:destination="@id/noteListFragment"
+            app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_create_lock"
+            app:destination="@id/lockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lockFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.auth.lock.LockFragment"
+        android:label="LockFragment" >
+        <action
+            android:id="@+id/action_get_notes"
+            app:destination="@id/noteListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.genius.wasylews.notes.presentation.main.fragment.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+</navigation>

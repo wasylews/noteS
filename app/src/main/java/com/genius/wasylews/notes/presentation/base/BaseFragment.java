@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.arellomobile.mvp.MvpDelegate;
 
@@ -30,7 +33,19 @@ public abstract class BaseFragment extends DaggerFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getBaseActivity().getOnBackPressedDispatcher().addCallback(this,
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        setEnabled(onBackPressed());
+                    }
+                });
+
         getMvpDelegate().onCreate(savedInstanceState);
+    }
+
+    protected boolean onBackPressed() {
+        return false;
     }
 
     @Nullable
@@ -46,12 +61,29 @@ public abstract class BaseFragment extends DaggerFragment {
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        onViewReady(savedInstanceState);
+        onViewReady(getArguments());
     }
 
-    protected abstract void onViewReady(Bundle savedInstanceState);
+    protected abstract void onViewReady(Bundle args);
 
-    protected abstract @LayoutRes int getLayoutResourceId();
+    protected abstract @LayoutRes
+    int getLayoutResourceId();
+
+    protected void navigate(@IdRes int res) {
+        navigate(res, null);
+    }
+
+    protected void navigate(@IdRes int res, @Nullable Bundle args) {
+        NavHostFragment.findNavController(this).navigate(res, args);
+    }
+
+    protected void back() {
+        NavHostFragment.findNavController(this).navigateUp();
+    }
+
+    protected BaseActivity getBaseActivity() {
+        return ((BaseActivity) requireActivity());
+    }
 
     @Override
     public void onStart() {

@@ -1,12 +1,10 @@
 package com.genius.wasylews.notes.presentation.main;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.WindowManager;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.LifecycleObserver;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
@@ -15,16 +13,11 @@ import com.genius.wasylews.notes.presentation.base.BaseActivity;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-
-public class MainActivity extends BaseActivity implements MainView {
+public class MainActivity extends BaseActivity implements MainView, LifecycleObserver {
 
     @InjectPresenter
     @Inject
     MainPresenter presenter;
-
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
     @ProvidePresenter
     MainPresenter providePresenter() {
@@ -33,9 +26,10 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     protected void onViewReady(Bundle savedInstanceState) {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
+
+        presenter.loadSettings();
     }
 
     @Override
@@ -44,19 +38,11 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public void toggleDarkMode(boolean darkThemeEnabled) {
+        if (darkThemeEnabled) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-        return true;
     }
 }

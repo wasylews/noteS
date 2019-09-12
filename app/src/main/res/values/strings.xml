@@ -3,4 +3,34 @@
 
     <!--toolbar navigation-->
     <string name="search">Search</string>
+
+    <!--messages-->
+    <string name="message_no_notes_yet">No notes yet</string>
+    <string name="message_auth_failed">Authentication failed</string>
+    <string name="message_fingerprint_not_supported">The devices does not support fingerprint authentication</string>
+    <string name="message_fingerprint_description">Place your finger on the fingerprint sensor</string>
+    <string name="message_password_description">Place your finger on the fingerprint sensor</string>
+    <string name="message_required_field">This field is required</string>
+    <string name="message_passwords_dont_match">Passwords don\'t match</string>
+    <string name="message_note_removed">Note removed</string>
+
+    <!--titles-->
+    <string name="title_fingerprint">Fingerprint authentication</string>
+    <string name="title_password">Password authentication</string>
+    <string name="title_create">Create database</string>
+    <string name="title_unlock">Unlock</string>
+    <string name="title_undo">Undo</string>
+
+    <!--hints-->
+    <string name="hint_title">Title</string>
+    <string name="hint_body">Note body</string>
+    <string name="hint_password">Enter password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="hint_use_fingerprint">Use fingerprint for unlock</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_display_options">Display options</string>
+    <string name="title_dark_theme">Use dark theme</string>
+    <string name="title_security_options">Security options</string>
+    <string name="title_use_fingerprint">Use fingerprint authentication</string>
+    <string name="message_fingerprint_unlock">Do you want to use fingerprint authentication?</string>
 </resources>

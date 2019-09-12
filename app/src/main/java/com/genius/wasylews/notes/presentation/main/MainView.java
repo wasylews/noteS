@@ -6,4 +6,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 interface MainView extends MvpView {
 
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void toggleDarkMode(boolean darkThemeEnabled);
 }

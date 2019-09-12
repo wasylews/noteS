@@ -2,11 +2,12 @@ package com.genius.wasylews.notes.presentation.base;
 
 import android.os.Bundle;
 
+import androidx.annotation.LayoutRes;
+
 import com.arellomobile.mvp.MvpDelegate;
 
 import org.jetbrains.annotations.NotNull;
 
-import androidx.annotation.LayoutRes;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
